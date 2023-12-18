@@ -1,5 +1,7 @@
 #include <mpi.h>
 #include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define TRACKER_RANK 0
 #define MAX_FILES 10
@@ -59,7 +61,12 @@ void peer(int numtasks, int rank) {
 int main (int argc, char *argv[]) {
     int numtasks, rank;
  
-    MPI_Init(&argc, &argv);
+    int provided;
+    MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &provided);
+    if (provided < MPI_THREAD_MULTIPLE) {
+        fprintf(stderr, "MPI nu are suport pentru multi-threading\n");
+        exit(-1);
+    }
     MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
