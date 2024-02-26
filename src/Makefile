@@ -1,5 +1,5 @@
 build:
-	mpicc -o tema3 tema3.c -pthread -Wall
+	mpic++ -o tema3 tema3.cpp -pthread -Wall 
 
 clean:
 	rm -rf tema3
